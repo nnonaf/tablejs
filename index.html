@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <input type="text" id="searchInput" placeholder="Search for names...">
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>30</td>
+                    <td>New York</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>25</td>
+                    <td>Los Angeles</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <button id="exportButton">Export to Excel</button>
+        <div id="rowCount">Total Rows: </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+        <script>
+            // Function to export the table to Excel
+            function exportToExcel() {
+                const table = document.getElementById("myTable");
+        
+                // Convert the table to a worksheet
+                const ws = XLSX.utils.table_to_sheet(table);
+        
+                // Create a workbook and add the worksheet
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        
+                // Save the workbook to an Excel file
+                const fileName = "table.xlsx";
+                XLSX.writeFile(wb, fileName);
+            }
+        
+            // Attach the exportToExcel function to the button click event
+            document.getElementById("exportButton").addEventListener("click", exportToExcel);
+        </script>
+        <script>
+            // Function to filter the table rows based on the input
+            function filterTable() {
+                const input = document.getElementById("searchInput");
+                const filter = input.value.toUpperCase();
+                const table = document.getElementById("myTable");
+                const tbody = table.getElementsByTagName("tbody")[0];
+                const rows = tbody.getElementsByTagName("tr");
+                const countDisplay = document.getElementById("rowCount");
+        
+                let rowCount = 0;
+        
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName("td");
+                    let found = false;
+        
+                    for (let j = 0; j < cells.length; j++) {
+                        const cell = cells[j];
+                        if (cell) {
+                            const textValue = cell.textContent || cell.innerText;
+                            if (textValue.toUpperCase().indexOf(filter) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+        
+                    if (found) {
+                        row.style.display = "";
+                        rowCount++;
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+        
+                countDisplay.textContent = "Total Rows: " + rowCount;
+            }
+        
+            // Attach the filterTable function to the input's "keyup" event
+            document.getElementById("searchInput").addEventListener("keyup", filterTable);
+        
+            // Initial count when the page loads
+            filterTable();
+        </script>
+    </body>
+</html>
