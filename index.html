@@ -105,3 +105,26 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+            var date = DateTime.Now.ToString("M-d-yyyy");
+            string path = @"Logs//accessbank-settlement-service-logs-" + date + ".txt";
+            string createText;
+            if (isError)
+            {
+                createText = "[ERR]"+ "|" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "|" + message + Environment.NewLine;
+            }
+            else
+            {
+                createText = "[INF]" + "|" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "|" + message + Environment.NewLine;
+            }
+            
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, createText);
+            }
+            File.AppendAllText(path, createText);
