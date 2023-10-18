@@ -1,3 +1,74 @@
+
+
+    function UnselectTheSelcted() {
+
+
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("myTable");
+        const tbody = table.getElementsByTagName("tbody")[0];
+        const rows = tbody.getElementsByTagName("tr");
+
+
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const cells = row.getElementsByTagName("td");
+            let found = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                const cell = cells[j];
+                if (cell) {
+                    const textValue = cell.textContent || cell.innerText;
+                    if (textValue.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+          //  console.log(cells[8])
+            if (found) {
+
+
+                if ($('#filtercheckbox').is(':checked') == true) {
+                    cells[8].checked = true
+                    //$('#filtercheckbox')[0].checked = true
+
+                    //$('.checkedbox').each(function () {
+
+                    //    this.checked = true;
+                    //});
+
+                   // alert("LLLLLLLL")
+
+                }
+                else {
+                   // alert("00000000")
+                    cells[8].checked = false
+
+                    //$('.checkedbox').each(function () {
+                    //    $('#filtercheckbox')[0].checked = false
+                    //    this.checked = false;
+                    //});
+                }
+
+
+
+
+
+
+            } 
+            
+        }
+
+
+
+
+
+
+
+    }
 <!DOCTYPE html>
 <html>
 <head>
