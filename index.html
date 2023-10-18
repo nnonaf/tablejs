@@ -1,3 +1,56 @@
+function UnselectTheSelected() {
+    const input = $("#searchInput");
+    const filter = input.val().toUpperCase();
+    const table = $("#myTable");
+    const tbody = table.find("tbody");
+    const rows = tbody.find("tr");
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = $(rows[i]);
+        const cells = row.find("td");
+        let found = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            const cell = $(cells[j]);
+            const textValue = cell.text().toUpperCase();
+
+            if (textValue.indexOf(filter) > -1) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            if ($("#filtercheckbox").is(":checked")) {
+                cells.eq(8).find("input[type='checkbox']").prop("checked", true);
+            } else {
+                cells.eq(8).find("input[type='checkbox']").prop("checked", false);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     function UnselectTheSelcted() {
