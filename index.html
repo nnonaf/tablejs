@@ -1,3 +1,52 @@
+
+    setTimeout(function () {
+        console.log("kkkkkkk")
+         $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "@(Url.Action("processBVN_Validation", "Quarterlyinterestdistribution"))",
+            data: JSON.stringify({ num:"08"}),
+             success: function (data) {
+
+                 if (data == "00") {
+
+                     $("#verificationStatus").show()
+                     $("#verificationStatus").css("background-color","green")
+
+
+
+                 } else {
+
+                     $("#verificationStatus").show();
+
+                 }
+
+
+
+                console.log(data)
+            },
+            error: function (xhr, err) {
+                console.log("readyState: " + xhr.readyState + "\nstatus: " + xhr.status);
+                console.log("responseText: " + xhr.responseText);
+            }
+         })
+
+        //location.reload();
+    },1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function UnselectTheSelected() {
     const input = $("#searchInput");
     const filter = input.val().toUpperCase();
