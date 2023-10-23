@@ -1,58 +1,29 @@
 
 
 
-  <tbody>
-                @if (Model != null)
-                {
-
-                    int a = 0;
-                    if (Model.Any())
-                    {
-
-                        foreach (var item in Model)
-                        {
-
-
-
-                            <tr>
-                                @*  <td>@(++a)</td>*@
-                                <td>@item.Eaccount</td>
-                                <td class="amount_td">@item.Amount</td>
-                                <td>@item.Narration</td>
-                                <td>@item.ClientName</td>
-                                <td>@item.BankCode</td>
-                                <td>@item.BankName</td>
-                                <td>@item.BankAccountName</td>
-                                <td>@item.AccountNumber</td>
-                                <td><input type="checkbox" class="checkbox checkedbox" value=@item.Id /></td>
-                                <td><i class="fa fa-comment-o " onclick="commentFunction(@item.Id)" value=@item.Id></i></td>
-                                @*<td onclick="editFile('@Newtonsoft.Json.JsonConvert.SerializeObject(item)')"><i class='fas fa-clone'></i></td>*@
-                                <td>
-
-                                    @if (item.IsNIBSSValidated == "1")
-                                    {
-                                        <span class="dot" style=" background-color: green"></span>
-                                    }
-                                    else if (item.IsNIBSSValidated == "0")
-                                    {
-                                        <span class="dot" style=" background-color:orange"></span>
-                                    }
-                                    else
-                                    {
-                                        <span class="dot" style=" background-color: red"></span>
-                                    }
-
-                                </td>
-                            </tr>
-                        }
-
-                    }
-
-                }
-
-
-
-            </tbody>
+<tbody>
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <tr style="@(item.ClientName == item.BankAccountName ? "" : "color:green")">
+                <td>@item.Eaccount</td>
+                <td class="amount_td">@item.Amount</td>
+                <td>@item.Narration</td>
+                <td>@item.ClientName</td>
+                <td>@item.BankCode</td>
+                <td>@item.BankName</td>
+                <td>@item.BankAccountName</td>
+                <td>@item.AccountNumber</td>
+                <td><input type="checkbox" class="checkbox checkedbox" value="@item.Id" /></td>
+                <td><i class="fa fa-comment-o" onclick="commentFunction('@item.Id')" value="@item.Id"></i></td>
+                <td>
+                    <span class="dot" style="background-color: @GetDotColor(item.IsNIBSSValidated)"></span>
+                </td>
+            </tr>
+        }
+    }
+</tbody>
 
 
 
