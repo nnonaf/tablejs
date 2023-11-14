@@ -1,3 +1,27 @@
+let debounceTimer;
+
+function debounceSearch() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        filterTable();
+    }, 500); // Adjust the delay as needed (e.g., 500 milliseconds)
+}
+
+// Attach the debounceSearch function to the input's "keyup" event
+document.getElementById("searchInput").addEventListener("keyup", debounceSearch);
+
+
+
+
+
+
+
+
+
+
+
+
+
 function filterTable() {
     const input = document.getElementById("searchInput");
     const filter = input.value.toUpperCase();
