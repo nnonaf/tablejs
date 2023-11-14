@@ -50,6 +50,78 @@ document.getElementById("searchInput").addEventListener("input", filterTable);
 
 
 
+            ----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function filterTable() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toUpperCase();
+    const table = document.getElementById("myTable");
+    const tbody = table.getElementsByTagName("tbody")[0];
+    const rows = tbody.getElementsByTagName("tr");
+    const countDisplay = document.getElementById("rowCount");
+    const sumAgeDisplay = document.getElementById("rowValue");
+
+    let rowCount = 0;
+    let amountSum = 0;
+    let filteredRowsHTML = '';
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName("td");
+        let found = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            if (cell) {
+                const textValue = cell.textContent || cell.innerText;
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (found) {
+            rowCount++;
+            let Value = parseFloat(cells[1].textContent.replace(/,/g, ''))
+            if (!isNaN(Value)) {
+                amountSum += Value;
+            }
+
+            filteredRowsHTML += row.outerHTML; // Build the HTML for the filtered rows
+        }
+    }
+
+    // Update the table with the filtered rows
+    tbody.innerHTML = filteredRowsHTML;
+
+    countDisplay.textContent = "Total Rows: " + rowCount;
+    sumAgeDisplay.textContent = "Transaction sum: N" + amountSum.toLocaleString();
+}
+
+// Attach the filterTable function to the input's "input" event for real-time filtering
+document.getElementById("searchInput").addEventListener("input", filterTable);
+
+
+
             
 
 
