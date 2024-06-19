@@ -589,6 +589,24 @@ CREATE TABLE [AGENT_LOGIN_TB] (
 
 
 
+                SELECT 
+    AL.ID AS LoginID,
+    AL.AccessToken,
+    AL.AgentId,
+    AL.Date AS LoginDate,
+    SA.ID AS AgentID,
+    SA.Email_Address,
+    SA.Staff_Id,
+    SA.Ref_Code,
+    SA.Password,
+    SA.Date AS AgentDate
+FROM 
+    [AGENT_LOGIN_TB] AL
+JOIN 
+    [SIAML_AGENT_TB] SA
+ON 
+    AL.AgentId = SA.ID;
+
 
 
 
